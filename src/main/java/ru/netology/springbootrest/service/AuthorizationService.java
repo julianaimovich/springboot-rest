@@ -15,13 +15,13 @@ public class AuthorizationService {
         this.userRepository = userRepository;
     }
 
-    public List<Authorities> getAuthorities(User guest) {
-        if (isEmpty(guest.getUser()) || isEmpty(guest.getPassword())) {
+    public List<Authorities> getAuthorities(User user) {
+        if (isEmpty(user.getName()) || isEmpty(user.getPassword())) {
             throw new InvalidCredentials("User name or password is empty");
         }
-        List<Authorities> userAuthorities = userRepository.getUserAuthorities(guest);
+        List<Authorities> userAuthorities = userRepository.getUserAuthorities(user);
         if (isEmpty(userAuthorities)) {
-            throw new UnauthorizedUser("Unknown user " + guest.getUser());
+            throw new UnauthorizedUser("Unknown user " + user.getName());
         }
         return userAuthorities;
     }
